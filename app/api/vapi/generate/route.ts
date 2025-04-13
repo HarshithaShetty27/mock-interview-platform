@@ -18,17 +18,19 @@ export async function POST(request: Request) {
         });
 
         const interview = {
-            role, type, level,
-            techstack: techstack.split(','),
+            role: role,
+            type: type,
+            level: level,
+            techstack: techstack.split(","),
             questions: JSON.parse(questions),
             userId: userid,
             finalized: true,
             coverImage: getRandomInterviewCover(),
-            createdAt: new Date().toISOString()
+            createdAt: new Date().toISOString(),
         }
 
         await db.collection("interviews").add(interview);
-        return Response.json({ success: true }, { status: 200 })
+        return Response.json({ success: true }, { status: 200 });
     } catch (error) {
         console.error(error);
         return Response.json({ success: false, error }, { status: 500 });
